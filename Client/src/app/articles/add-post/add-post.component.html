@@ -18,13 +18,13 @@
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat'
     }"></editor>
-    <div>
+    <div class="btns">
       <label for="upload" class="upload">Image Upload</label>
       <input type="file" (change)="onFileSelected($event)"
-        onchange="document.getElementById('upload-span').textContent = this.files[0].name + ' selected'" autocomplete="off"
-        class="upload" id="upload" hidden />
+        onchange="document.getElementById('upload-span').textContent = this.files[0].name + ' selected'"
+        autocomplete="off" class="upload" id="upload" hidden />
       <span id="upload-span"></span>
+      <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
     </div>
-    <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
   </form>
 </div>

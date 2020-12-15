@@ -28,7 +28,6 @@ export class DetailsPostComponent implements OnInit {
 
     this.postService.byId(this.id)
       .subscribe(data => {
-        console.log(data);
         data.isAuthor = this.authService.data._id == data.author._id;
         this.post = data;
       });
@@ -57,6 +56,13 @@ export class DetailsPostComponent implements OnInit {
                 });
             });
         }
+      });
+  }
+
+  like() {
+    this.postService.like(this.id, this.authService.data._id)
+      .subscribe(data => {
+        this.post.likes.push(this.authService.data._id);
       });
   }
 

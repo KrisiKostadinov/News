@@ -20,3 +20,8 @@ label.upload {
     cursor: pointer;
     margin-top: 1rem;
 }
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+}

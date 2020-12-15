@@ -7,37 +7,43 @@ module.exports = {
         async login(req, res) {
             const { email, password } = req.body;
 
-            if(email == '' || password == '') {
+            if (email == '' || password == '') {
                 return res.json({ error: 'The email and password is required!' });
             }
 
             const user = await User.findOne({ email });
 
-            if(!user) {
+            if (!user) {
                 return res.json({ error: 'The email or password is wrong!' });
             }
-            
+
             const isCompares = await bcrypt.compare(password, user.password);
 
-            if(!isCompares) {
+            if (!isCompares) {
                 return res.json({ error: 'The email or password is wrong!' });
             }
 
             const token = await jwt.sign({ user }, 'secret');
 
-            res.json({ token, fullname: user.fullname, email: user.email, isAdmin: user.isAdmin });
+            res.json({
+                token,
+                _id: user._id,
+                fullname: user.fullname,
+                email: user.email,
+                isAdmin: user.isAdmin,
+            });
         },
 
         async register(req, res) {
             const { fullname, email, password } = req.body;
 
-            if(email == '' || password == '' || fullname == '') {
+            if (email == '' || password == '' || fullname == '') {
                 return res.json({ error: 'The fullname, email and password is required!' });
             }
 
             const user = await User.findOne({ email });
 
-            if(user) {
+            if (user) {
                 return res.json({ error: 'This user already exists!' });
             }
 

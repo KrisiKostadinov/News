@@ -15,6 +15,7 @@ export class PostService {
   byIdPath: string = '/posts/details';
   deletePath: string = '/posts/delete';
   editPath: string = '/posts/edit';
+  likePath: string = '/posts/like';
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +37,10 @@ export class PostService {
 
   edit(data, id): Observable<Post> {
     return this.http.post<Post>(this.url + this.editPath + `/${id}`, data);
+  }
+
+  like(id, userId): Observable<Post> {
+    return this.http.post<Post>(this.url + this.likePath + `/${id}`, { userId });
   }
 
 }
