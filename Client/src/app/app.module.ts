@@ -9,9 +9,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { PostModule } from './articles/post.module';
 import { AuthModule } from './auth/auth.module';
-import { NavbarComponent } from './common/navbar/navbar.component';
 import { CommonAppModule } from './common/common-app.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import {
+  AngularFireStorageModule,
+} from "@angular/fire/storage";
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     CommonAppModule,
     AuthModule,
     PostModule,

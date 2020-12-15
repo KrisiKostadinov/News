@@ -8,6 +8,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { PostService } from '../services/post.service';
 import { ListPostComponent } from './list-post/list-post.component';
+import { MatCardModule } from '@angular/material/card';
+import { DetailsPostComponent } from './details-post/details-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeletePostComponent } from './delete-post/delete-post.component';
 
 
 
@@ -15,7 +20,13 @@ import { ListPostComponent } from './list-post/list-post.component';
   declarations: [
     AddPostComponent,
     ListPostComponent,
-    ListPostComponent
+    ListPostComponent,
+    DetailsPostComponent,
+    EditPostComponent,
+    DeletePostComponent
+  ],
+  exports: [
+    ListPostComponent,
   ],
   imports: [
     CommonModule,
@@ -25,9 +36,14 @@ import { ListPostComponent } from './list-post/list-post.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
   ],
   providers: [
     PostService,
+  ],
+  entryComponents: [
+    DeletePostComponent,
   ]
 })
 export class PostModule { }

@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { ListPostComponent } from './articles/list-post/list-post.component';
 
 
 const routes: Routes = [
+  {
+    path: '', component: ListPostComponent,
+  },
   {
     path: 'post',
     loadChildren: () => import('./articles/post-routing.module').then(m => m.PostRoutingModule),

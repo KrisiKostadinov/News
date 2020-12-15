@@ -1,0 +1,23 @@
+.articles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px;
+}
+
+mat-card {
+    max-width: 400px;
+}
+
+mat-card-title {
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+}

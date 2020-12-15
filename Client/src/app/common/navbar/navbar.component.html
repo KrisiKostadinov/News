@@ -4,7 +4,10 @@
             <a routerLink="/">Home</a>
         </li>
         <li>
-            <a routerLink="/posts">Posts</a>
+            <a routerLink="/post">Posts</a>
+        </li>
+        <li *ngIf="user.isAuthenticated()">
+            <a routerLink="/post/add">Create post</a>
         </li>
     </ul>
     <ul class="right">

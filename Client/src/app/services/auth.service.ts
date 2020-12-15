@@ -45,7 +45,6 @@ export class AuthService {
 
   public isAuthenticated() {
     const token = this.getToken;
-    console.log(token);
     return !!token;
   }
 

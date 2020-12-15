@@ -12,6 +12,9 @@ export class PostService {
   url: string = environment.url;
   allPath: string = '/posts/all';
   addPath: string = '/posts/add';
+  byIdPath: string = '/posts/details';
+  deletePath: string = '/posts/delete';
+  editPath: string = '/posts/edit';
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +24,18 @@ export class PostService {
 
   all(): Observable<Post[]> {
     return this.http.get<Post[]>(this.url + this.allPath);
+  }
+
+  byId(id): Observable<Post> {
+    return this.http.get<Post>(this.url + this.byIdPath + `/${id}`);
+  }
+
+  delete(id): Observable<Post> {
+    return this.http.delete<Post>(this.url + this.deletePath + `/${id}`);
+  }
+
+  edit(data, id): Observable<Post> {
+    return this.http.post<Post>(this.url + this.editPath + `/${id}`, data);
   }
 
 }

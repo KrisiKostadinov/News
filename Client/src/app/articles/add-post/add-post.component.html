@@ -1,12 +1,12 @@
 <h2>Create new post</h2>
 <div class="post">
-    <form [formGroup]="form" (ngSubmit)="add()">
-        <mat-form-field>
-            <mat-label>Title</mat-label>
-            <input matInput type="text" formControlName="title">
-        </mat-form-field>
-        <editor formControlName="content" [init]="{
-      height: 200,
+  <form [formGroup]="form" (ngSubmit)="add()">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput type="text" formControlName="title">
+    </mat-form-field>
+    <editor formControlName="content" [init]="{
+      height: 400,
       menubar: true,
       plugins: [
         'advlist autolink lists link image charmap print preview anchor',
@@ -18,6 +18,13 @@
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat'
     }"></editor>
-        <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
-    </form>
+    <div>
+      <label for="upload" class="upload">Image Upload</label>
+      <input type="file" (change)="onFileSelected($event)"
+        onchange="document.getElementById('upload-span').textContent = this.files[0].name + ' selected'" autocomplete="off"
+        class="upload" id="upload" hidden />
+      <span id="upload-span"></span>
+    </div>
+    <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
+  </form>
 </div>
