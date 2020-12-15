@@ -1,0 +1,39 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 200px;
+    background-color: #f4f4f4;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+}
+
+.navbar ul ul {
+    display: flex;
+}
+
+ul li a {
+    padding: 0 10px;
+    text-decoration: none;
+    color: #222;
+}
+
+ul li {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+ul li:hover {
+    background-color: #222;
+}
+
+ul li:hover > a {
+    color: #fff;
+}

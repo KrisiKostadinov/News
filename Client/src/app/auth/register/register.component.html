@@ -1,0 +1,18 @@
+<h2>Register</h2>
+<div class="register">
+    <form [formGroup]="form" (ngSubmit)="register()">
+        <mat-form-field>
+            <mat-label>Fullname</mat-label>
+            <input matInput type="text" formControlName="fullname">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        <button type="submit" [disabled]="!form.valid" mat-button color="primary">Register</button>
+    </form>
+</div>

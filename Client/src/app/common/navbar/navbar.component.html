@@ -1,0 +1,29 @@
+<nav class="navbar">
+    <ul class="left">
+        <li>
+            <a routerLink="/">Home</a>
+        </li>
+        <li>
+            <a routerLink="/posts">Posts</a>
+        </li>
+    </ul>
+    <ul class="right">
+        <ul *ngIf="!user.data">
+            <li>
+                <a routerLink="/user/login">Login</a>
+            </li>
+            <li>
+                <a routerLink="/user/register">Register</a>
+            </li>
+        </ul>
+        <ul *ngIf="user.data">
+            <li>
+                <a routerLink="">Hello, {{ user.data.fullname }}</a>
+            </li>
+            <li>
+                <a routerLink="" (click)="logout()">Logout</a>
+            </li>
+        </ul>
+    </ul>
+</nav>
+<router-outlet name="navbar"></router-outlet>

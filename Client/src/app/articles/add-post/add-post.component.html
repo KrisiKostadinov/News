@@ -1,0 +1,23 @@
+<h2>Create new post</h2>
+<div class="post">
+    <form [formGroup]="form" (ngSubmit)="add()">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title">
+        </mat-form-field>
+        <editor formControlName="content" [init]="{
+      height: 200,
+      menubar: true,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table paste code help wordcount'
+      ],
+      toolbar:
+        'undo redo | formatselect | bold italic backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist outdent indent | removeformat'
+    }"></editor>
+        <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
+    </form>
+</div>
