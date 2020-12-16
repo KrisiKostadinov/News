@@ -9,6 +9,7 @@ const PostSchema = new mongoose.Schema({
 
     content: {
         type: String,
+        required: true,
     },
 
     categoryId: {
@@ -32,6 +33,13 @@ const PostSchema = new mongoose.Schema({
         }
     ],
 
+    comments: [
+        {
+            type: ObjectId,
+            ref: 'Comment'
+        }
+    ],
+    
     createdOn: {
         type: Date,
         default: Date.now,

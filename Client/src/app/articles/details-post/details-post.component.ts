@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeletePostComponent } from '../delete-post/delete-post.component';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-details-post',
@@ -30,6 +31,11 @@ export class DetailsPostComponent implements OnInit {
       .subscribe(data => {
         data.isAuthor = this.authService.data._id == data.author._id;
         this.post = data;
+
+        this.post.comments.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
+        console.log();
+
+        this.checkAuthorComment();
       });
 
   }
@@ -64,6 +70,32 @@ export class DetailsPostComponent implements OnInit {
       .subscribe(data => {
         this.post.likes.push(this.authService.data._id);
       });
+  }
+
+  addedComment() {
+    this.getPost();
+  }
+
+  deletedComment(comment: Comment) {
+    console.log(this.post.comments, comment);
+    this.post.comments = this.post.comments.filter(c => c._id != comment._id);
+    console.log(this.post.comments);
+  }
+
+  getPost() {
+    this.postService.byId(this.id)
+      .subscribe(data => {
+        data.isAuthor = this.authService.data._id == data.author._id;
+        this.post = data;
+
+        this.checkAuthorComment();
+      });
+  }
+
+  checkAuthorComment() {
+    this.post.comments.forEach(comment => {
+      comment.isAuthor = comment.author._id == this.authService.data._id;
+    });
   }
 
 }

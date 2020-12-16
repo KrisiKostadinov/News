@@ -1,0 +1,15 @@
+<mat-list>
+    <mat-list-item *ngFor="let comment of comments; index as i">
+        <div mat-line> {{ comment.author.fullname }} </div>
+        <div mat-line>{{ comment.content }}</div>
+        <div *ngIf="comment.isAuthor">
+            <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item color="accent" (click)="edit(i)">Edit</button>
+                <button mat-menu-item color="warn" (click)="delete(comment._id, i)">Delete</button>
+            </mat-menu>
+        </div>
+    </mat-list-item>
+</mat-list>

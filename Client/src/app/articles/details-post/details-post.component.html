@@ -12,4 +12,7 @@
         <button *ngIf="post.isAuthor" mat-button (click)="edit(post._id)" color="accent">Edit</button>
         <button *ngIf="post.isAuthor" mat-button (click)="delete(post._id)" color="warn">Delete</button>
     </mat-card-actions>
+    <h4>Comments ({{ post.comments.length }})</h4>
+    <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
+    <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>
 </mat-card>

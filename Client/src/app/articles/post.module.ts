@@ -13,6 +13,14 @@ import { DetailsPostComponent } from './details-post/details-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeletePostComponent } from './delete-post/delete-post.component';
+import { AddCommentComponent } from './comments/add-comment/add-comment.component';
+import { ListCommentsComponent } from './comments/list-comments/list-comments.component';
+import { CommentService } from '../services/comment.service';
+import { MatListModule } from '@angular/material/list';
+import { EditCommentComponent } from './comments/edit-comment/edit-comment.component';
+import { DeleteCommentComponent } from './comments/delete-comment/delete-comment.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -23,7 +31,11 @@ import { DeletePostComponent } from './delete-post/delete-post.component';
     ListPostComponent,
     DetailsPostComponent,
     EditPostComponent,
-    DeletePostComponent
+    DeletePostComponent,
+    AddCommentComponent,
+    ListCommentsComponent,
+    EditCommentComponent,
+    DeleteCommentComponent,
   ],
   exports: [
     ListPostComponent,
@@ -38,12 +50,18 @@ import { DeletePostComponent } from './delete-post/delete-post.component';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [
     PostService,
+    CommentService,
   ],
   entryComponents: [
     DeletePostComponent,
+    EditCommentComponent,
+    DeleteCommentComponent,
   ]
 })
 export class PostModule { }

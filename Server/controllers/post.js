@@ -11,7 +11,13 @@ module.exports = {
         async byId(req, res) {
             const post = await Post.findById(req.params.id)
                 .populate('author')
-                .populate('likes');
+                .populate('likes')
+                .populate({
+                    path: 'comments',
+                    populate: {
+                        path: 'author'
+                    }
+                });
 
             res.json(post);
         },

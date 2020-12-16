@@ -1,0 +1,30 @@
+const Comment = require('../models/Comment');
+const Post = require('../models/Post');
+
+module.exports = {
+    post: {
+        async add(req, res) {
+            const comment = await Comment.create({ ...req.body });
+            await Post.updateOne({ _id: req.body.post }, {
+                $addToSet: { comments: comment._id }
+            });
+
+            res.json(comment);
+        },
+
+        async edit(req, res) {
+            const comment = await Comment.updateOne({ _id: req.params.id }, {
+                $set: { content: req.body.content }
+            });
+
+            res.json(comment);
+        }
+    },
+
+    delete: {
+        async byId(req, res) {
+            const deletedComment = await Comment.deleteOne({ _id: req.params.id });
+            res.json(deletedComment);
+        }
+    }
+}
