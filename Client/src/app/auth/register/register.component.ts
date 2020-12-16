@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  error: string;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -38,6 +39,8 @@ export class RegisterComponent implements OnInit {
           
           return this.router.navigate(['/']);
         }
+
+        this.error = data.error;
       });
     }
   }

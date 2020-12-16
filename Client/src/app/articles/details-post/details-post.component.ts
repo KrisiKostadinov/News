@@ -32,8 +32,7 @@ export class DetailsPostComponent implements OnInit {
         data.isAuthor = this.authService.data._id == data.author._id;
         this.post = data;
 
-        this.post.comments.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
-        console.log();
+        this.sortComments();
 
         this.checkAuthorComment();
       });
@@ -66,10 +65,15 @@ export class DetailsPostComponent implements OnInit {
   }
 
   like() {
-    this.postService.like(this.id, this.authService.data._id)
-      .subscribe(data => {
-        this.post.likes.push(this.authService.data._id);
-      });
+    if (!this.post.likes.some(x => x == this.authService.data._id)) {
+      this.post.likes.push(this.authService.data._id);
+      this.postService.like(this.id, this.authService.data._id)
+        .subscribe();
+    } else {
+      this.post.likes = this.post.likes.filter(x => x != this.authService.data._id);
+      this.postService.dislike(this.id, this.authService.data._id)
+        .subscribe();
+    }
   }
 
   addedComment() {
@@ -77,9 +81,7 @@ export class DetailsPostComponent implements OnInit {
   }
 
   deletedComment(comment: Comment) {
-    console.log(this.post.comments, comment);
     this.post.comments = this.post.comments.filter(c => c._id != comment._id);
-    console.log(this.post.comments);
   }
 
   getPost() {
@@ -87,6 +89,8 @@ export class DetailsPostComponent implements OnInit {
       .subscribe(data => {
         data.isAuthor = this.authService.data._id == data.author._id;
         this.post = data;
+
+        this.sortComments();
 
         this.checkAuthorComment();
       });
@@ -96,6 +100,18 @@ export class DetailsPostComponent implements OnInit {
     this.post.comments.forEach(comment => {
       comment.isAuthor = comment.author._id == this.authService.data._id;
     });
+  }
+
+  deleteAllComments() {
+    this.post.comments = [];
+    this.postService.deleteAllComments(this.post._id)
+      .subscribe(data => {
+        this.getPost();
+      });
+  }
+
+  sortComments() {
+    this.post.comments.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
   }
 
 }

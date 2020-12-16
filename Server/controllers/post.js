@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 
 module.exports = {
     get: {
@@ -11,7 +12,6 @@ module.exports = {
         async byId(req, res) {
             const post = await Post.findById(req.params.id)
                 .populate('author')
-                .populate('likes')
                 .populate({
                     path: 'comments',
                     populate: {
@@ -47,6 +47,15 @@ module.exports = {
                 });
 
             res.json(post);
+        },
+
+        async dislike(req, res) {
+            const post = await Post.updateOne({ _id: req.params.id },
+                {
+                    $pull: { likes: req.body.userId }
+                });
+
+            res.json(post);
         }
     },
 
@@ -54,6 +63,15 @@ module.exports = {
         async byId(req, res) {
             await Post.findByIdAndDelete(req.params.id);
             res.status(200).send();
+        },
+
+        async allComments(req, res) {
+            console.log(req.params.postId);
+            await Post.updateOne({ _id: req.params.postId }, {
+                $set: { comments: [] }
+            });
+
+            await Comment.deleteMany({ post: req.params.postId });
         }
     }
 }

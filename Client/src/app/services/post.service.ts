@@ -16,6 +16,8 @@ export class PostService {
   deletePath: string = '/posts/delete';
   editPath: string = '/posts/edit';
   likePath: string = '/posts/like';
+  dislikePath: string = '/posts/dislike';
+  deleteAllCommentsPath: string = '/posts/delete/all-comments';
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +43,14 @@ export class PostService {
 
   like(id, userId): Observable<Post> {
     return this.http.post<Post>(this.url + this.likePath + `/${id}`, { userId });
+  }
+
+  dislike(id, userId): Observable<Post> {
+    return this.http.post<Post>(this.url + this.dislikePath + `/${id}`, { userId });
+  }
+
+  deleteAllComments(id): Observable<Post> {
+    return this.http.delete<Post>(this.url + this.deleteAllCommentsPath + `/${id}`);
   }
 
 }

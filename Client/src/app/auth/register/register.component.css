@@ -10,3 +10,7 @@ mat-form-field {
 h2 {
     text-align: center;
 }
+
+mat-error {
+    text-align: center;
+}

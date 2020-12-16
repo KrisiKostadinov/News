@@ -35,7 +35,6 @@ export class AddPostComponent implements OnInit {
 
   add() {
     if (this.form.valid) {
-
       this.upload().subscribe(data => {
         this.form.disable();
       });
@@ -58,6 +57,10 @@ export class AddPostComponent implements OnInit {
       finalize(() => {
         this.downloadURL = fileRef.getDownloadURL();
         this.downloadURL.subscribe(url => {
+          
+          if(!this.file) {
+            url = '';
+          }
           
           this.postService.add({
             ...this.form.value,
