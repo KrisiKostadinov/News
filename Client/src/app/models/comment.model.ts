@@ -6,4 +6,6 @@ export class Comment {
     author?: User;
     isAuthor?: boolean;
     createdOn?: string;
+    likes?: string[];
+    isLiked?: boolean;
 }

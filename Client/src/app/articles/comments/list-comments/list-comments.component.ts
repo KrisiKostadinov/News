@@ -16,7 +16,7 @@ export class ListCommentsComponent implements OnInit {
   @Input() comments: Comment[];
   @Output() deletedComment: EventEmitter<Comment> = new EventEmitter<Comment>();
   
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
     private commentService: CommentService,
     private dialog: MatDialog) { }
 
@@ -27,6 +27,7 @@ export class ListCommentsComponent implements OnInit {
   updateComments() {
     this.comments.forEach(comment => {
       comment.isAuthor = comment.author._id == this.authService.data._id;
+      comment.isLiked = this.isLikedUser(comment);
     });
   }
 
@@ -61,6 +62,30 @@ export class ListCommentsComponent implements OnInit {
         }
       });
 
+  }
+
+  like(i) {
+    if (!this.isLikedUser(this.comments[i])) {
+      this.comments.forEach(comment => {
+        comment.likes.push(this.authService.data._id);
+        comment.isLiked = this.isLikedUser(this.comments[i]);
+      });
+
+      this.commentService.like(this.comments[i]._id, this.authService.data._id)
+      .subscribe();
+    } else {
+      this.comments.forEach(comment => {
+        comment.likes = comment.likes.filter(x => x != this.authService.data._id);
+        comment.isLiked = this.isLikedUser(this.comments[i]);
+      });
+      
+      this.commentService.dislike(this.comments[i]._id)
+      .subscribe();
+    }
+  }
+
+  isLikedUser(comment: Comment) {
+    return comment.likes.some(u => u == this.authService.data._id);
   }
 
 }

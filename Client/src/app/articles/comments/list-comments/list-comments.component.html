@@ -1,6 +1,11 @@
 <mat-list>
     <mat-list-item *ngFor="let comment of comments; index as i">
-        <div mat-line> {{ comment.author.fullname }} </div>
+        <div mat-line>
+            <span>{{ comment.author.fullname }}</span>
+            <button *ngIf="comment.isLiked" mat-button color="primary" (click)="like(i)">Like
+                {{ comment.likes?.length }}</button>
+            <button *ngIf="!comment.isLiked" mat-button (click)="like(i)">Like {{ comment.likes?.length }}</button>
+        </div>
         <div mat-line>{{ comment.content }}</div>
         <div mat-line>{{ comment.createdOn }}</div>
         <div *ngIf="comment.isAuthor">

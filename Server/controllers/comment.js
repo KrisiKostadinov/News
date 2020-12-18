@@ -18,6 +18,14 @@ module.exports = {
             });
 
             res.json(comment);
+        },
+
+        async like(req, res) {
+            const comment = await Comment.updateOne({ _id: req.params.id }, {
+                $addToSet: { likes: req.body.userId }
+            });
+            
+            res.send(comment);
         }
     },
 
@@ -25,6 +33,14 @@ module.exports = {
         async byId(req, res) {
             const deletedComment = await Comment.deleteOne({ _id: req.params.id });
             res.json(deletedComment);
+        },
+
+        async dislike(req, res) {
+            const comment = await Comment.updateOne({ _id: req.params.id }, {
+                $pull: { likes: req.body.userId }
+            });
+
+            res.send(comment);
         }
     }
 }
