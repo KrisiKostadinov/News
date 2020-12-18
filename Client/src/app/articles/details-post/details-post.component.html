@@ -13,6 +13,7 @@
                 <button mat-menu-item *ngIf="post.isAuthor" (click)="edit(post._id)" color="accent">Edit</button>
                 <button mat-menu-item *ngIf="post.isAuthor" (click)="delete(post._id)" color="warn">Delete</button>
                 <button mat-menu-item color="warn" (click)="deleteAllComments()">Delete all comments</button>
+                <button mat-menu-item color="warn" (click)="lockComments()">Lock/unlock the comments</button>
             </mat-menu>
         </div>
     </div>
@@ -28,7 +29,15 @@
         <span>Tags: </span>
         <li *ngFor="let tag of post?.tags">{{ tag }}</li>
     </ul>
-    <h4>Comments ({{ post.comments.length }})</h4>
-    <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
-    <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>
+    <div *ngIf="!post.lockComments">
+        <h4>Comments ({{ post.comments.length }})</h4>
+        <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
+        <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>
+    </div>
+    <div class="comments-lock" *ngIf="post.lockComments">
+        <h4>
+            <mat-icon>lock</mat-icon>
+            Comments
+        </h4>
+    </div>
 </mat-card>

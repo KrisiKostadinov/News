@@ -17,4 +17,5 @@ export class Post {
     createdOnAsString?: string;
     isLiked: boolean;
     tags: string[];
+    lockComments?: boolean;
 }

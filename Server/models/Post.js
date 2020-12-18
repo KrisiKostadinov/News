@@ -49,7 +49,12 @@ const PostSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         default: Date.now,
+    },
+
+    lockComments: {
+        type: Boolean,
     }
+
 });
 
 const Post = mongoose.model('Post', PostSchema);

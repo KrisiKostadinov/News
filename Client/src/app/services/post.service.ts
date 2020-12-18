@@ -18,6 +18,8 @@ export class PostService {
   likePath: string = '/posts/like';
   dislikePath: string = '/posts/dislike';
   deleteAllCommentsPath: string = '/posts/delete/all-comments';
+  lockCommentsPath: string = '/posts/lock-comments';
+  unlockCommentsPath: string = '/posts/unlock-comments';
 
   constructor(private http: HttpClient) { }
 
@@ -51,6 +53,14 @@ export class PostService {
 
   deleteAllComments(id): Observable<Post> {
     return this.http.delete<Post>(this.url + this.deleteAllCommentsPath + `/${id}`);
+  }
+  
+  lockComments(id): Observable<Post> {
+    return this.http.post<Post>(this.url + this.lockCommentsPath + `/${id}`, { });
+  }
+
+  unlockComments(id): Observable<Post> {
+    return this.http.post<Post>(this.url + this.unlockCommentsPath + `/${id}`, { });
   }
 
 }

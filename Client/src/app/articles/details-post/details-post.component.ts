@@ -28,7 +28,7 @@ export class DetailsPostComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
 
-      this.getPost();
+    this.getPost();
   }
 
   edit(id) {
@@ -88,12 +88,14 @@ export class DetailsPostComponent implements OnInit {
         data.isAuthor = this.authService.data._id == data.author._id;
         this.post = data;
 
-        this.sortComments();
+        if (!this.post.lockComments) {
+          this.sortComments();
 
-        this.post.createdOnAsString = new Date(this.post.createdOn).toDateString() + ' / ' + new Date(this.post.createdOn).toLocaleTimeString();
-        this.post.isLiked = this.isLikedUser();
-        
-        this.checkAuthorComment();
+          this.post.createdOnAsString = new Date(this.post.createdOn).toDateString() + ' / ' + new Date(this.post.createdOn).toLocaleTimeString();
+          this.post.isLiked = this.isLikedUser();
+
+          this.checkAuthorComment();
+        }
       });
   }
 
@@ -107,7 +109,7 @@ export class DetailsPostComponent implements OnInit {
     });
   }
 
-  deleteAllComments() {
+  public deleteAllComments(): void {
     this.post.comments = [];
     this.postService.deleteAllComments(this.post._id)
       .subscribe(data => {
@@ -115,11 +117,25 @@ export class DetailsPostComponent implements OnInit {
       });
   }
 
-  sortComments() {
+  private sortComments(): void {
     this.post.comments.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
     this.post.comments.forEach(comment => {
       comment.createdOn = new Date(comment.createdOn).toDateString();
     });
+  }
+
+  public lockComments(): void {
+    if (!this.post.lockComments) {
+      this.postService.lockComments(this.id)
+      .subscribe(data => {
+        this.getPost();
+      });
+    } else {
+      this.postService.unlockComments(this.id)
+      .subscribe(data => {
+        this.getPost();
+      });
+    }
   }
 
 }

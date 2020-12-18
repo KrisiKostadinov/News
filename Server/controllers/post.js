@@ -58,6 +58,22 @@ module.exports = {
                 });
 
             res.json(post);
+        },
+
+        async lockComments(req, res) {
+            const post = await Post.updateOne({ _id: req.params.id }, {
+                $set: { lockComments: true }
+            });
+            
+            res.send(post);
+        },
+
+        async unLockComments(req, res) {
+            const post = await Post.updateOne({ _id: req.params.id }, {
+                $set: { lockComments: false }
+            });
+
+            res.send(post);
         }
     },
 
