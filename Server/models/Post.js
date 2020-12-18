@@ -40,6 +40,12 @@ const PostSchema = new mongoose.Schema({
         }
     ],
     
+    tags: [
+        {
+            type: String,
+        }
+    ],
+
     createdOn: {
         type: Date,
         default: Date.now,

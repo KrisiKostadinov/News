@@ -11,6 +11,10 @@ mat-form-field:nth-child(2) {
     width: 30%;
 }
 
+mat-form-field:nth-child(3) {
+    width: 100%;
+}
+
 h2 {
     text-align: center;
 }
@@ -25,7 +29,24 @@ label.upload {
     margin-top: 1rem;
 }
 
-.btns {
+.post > button {
+    margin: 20px 0;
+}
+
+.post div {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.post div img {
+    width: 100%;
+}
+
+.post div button {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 0;
 }

@@ -16,4 +16,5 @@ export class Post {
     comments: Comment[];
     createdOnAsString?: string;
     isLiked: boolean;
+    tags: string[];
 }

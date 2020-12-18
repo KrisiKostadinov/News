@@ -24,6 +24,10 @@
         <button *ngIf="post.isLiked" mat-button (click)="like()" color="primary">Like {{ post.likes?.length }}</button>
         <button *ngIf="!post.isLiked" mat-button (click)="like()">Like {{ post.likes?.length }}</button>
     </mat-card-actions>
+    <ul class="tags">
+        <span>Tags: </span>
+        <li *ngFor="let tag of post?.tags">{{ tag }}</li>
+    </ul>
     <h4>Comments ({{ post.comments.length }})</h4>
     <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
     <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>

@@ -26,6 +26,8 @@ import { AddCategoryComponent } from '../categories/add-category/add-category.co
 import { MatSelectModule } from '@angular/material/select';
 import { EditCategoryComponent } from '../categories/edit-category/edit-category.component';
 import { DeleteCategoryComponent } from '../categories/delete-category/delete-category.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
@@ -63,6 +65,8 @@ import { DeleteCategoryComponent } from '../categories/delete-category/delete-ca
     MatMenuModule,
     MatIconModule,
     MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   providers: [
     PostService,
@@ -73,7 +77,7 @@ import { DeleteCategoryComponent } from '../categories/delete-category/delete-ca
     EditCommentComponent,
     DeleteCommentComponent,
     DeleteCategoryComponent,
-    EditCategoryComponent,,
+    EditCategoryComponent, ,
   ]
 })
 export class PostModule { }

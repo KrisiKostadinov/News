@@ -11,19 +11,40 @@
         <mat-option *ngFor="let category of categories" value="{{category._id}}">{{ category.title }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Select Tags</mat-label>
+      <mat-chip-list #tagList aria-label="Tag selection">
+        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="removeTag(tag)">
+          {{tag}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addTag($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+          {{tag}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div>
+      <button *ngIf="imageSrc" (click)="removeSrc()">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <label for="upload" class="upload" *ngIf="!imageSrc">Image Upload</label>
+      <input type="file" (change)="onFileSelected($event)" autocomplete="off" class="upload" id="upload" hidden />
+      <img [src]="imageSrc" *ngIf="imageSrc">
+    </div>
+
     <editor formControlName="content" [init]="{
       height: 400,
       toolbar:
         'undo redo | formatselect | bold italic backcolor
         bullist numlist outdent indent | removeformat'
     }"></editor>
-    <div class="btns">
-      <label for="upload" class="upload">Image Upload</label>
-      <input type="file" (change)="onFileSelected($event)"
-        onchange="document.getElementById('upload-span').textContent = this.files[0].name + ' selected'"
-        autocomplete="off" class="upload" id="upload" hidden />
-      <span id="upload-span"></span>
       <button type="submit" [disabled]="!form.valid" mat-button color="primary">Create post</button>
-    </div>
   </form>
 </div>
