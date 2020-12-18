@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   constructor(public user: AuthService,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
   }

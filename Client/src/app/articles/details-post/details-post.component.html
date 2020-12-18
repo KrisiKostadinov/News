@@ -3,12 +3,15 @@
         <mat-card-header>
             <mat-card-title>{{ post.title }}</mat-card-title>
             <mat-card-subtitle>{{ post.author?.fullname }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ post.createdOnAsString }}</mat-card-subtitle>
         </mat-card-header>
         <div *ngIf="post.isAuthor">
             <button mat-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="post.isAuthor" (click)="edit(post._id)" color="accent">Edit</button>
+                <button mat-menu-item *ngIf="post.isAuthor" (click)="delete(post._id)" color="warn">Delete</button>
                 <button mat-menu-item color="warn" (click)="deleteAllComments()">Delete all comments</button>
             </mat-menu>
         </div>
@@ -18,9 +21,8 @@
         <div innerHTML="{{ post.content }}"></div>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-button (click)="like()" color="primary">Like {{ post.likes?.length }}</button>
-        <button *ngIf="post.isAuthor" mat-button (click)="edit(post._id)" color="accent">Edit</button>
-        <button *ngIf="post.isAuthor" mat-button (click)="delete(post._id)" color="warn">Delete</button>
+        <button *ngIf="post.isLiked" mat-button (click)="like()" color="primary">Like {{ post.likes?.length }}</button>
+        <button *ngIf="!post.isLiked" mat-button (click)="like()">Like {{ post.likes?.length }}</button>
     </mat-card-actions>
     <h4>Comments ({{ post.comments.length }})</h4>
     <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>

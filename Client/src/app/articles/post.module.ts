@@ -14,13 +14,18 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeletePostComponent } from './delete-post/delete-post.component';
 import { AddCommentComponent } from './comments/add-comment/add-comment.component';
-import { ListCommentsComponent } from './comments/list-comments/list-comments.component';
 import { CommentService } from '../services/comment.service';
 import { MatListModule } from '@angular/material/list';
 import { EditCommentComponent } from './comments/edit-comment/edit-comment.component';
 import { DeleteCommentComponent } from './comments/delete-comment/delete-comment.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { ListCommentsComponent } from './comments/list-comments/list-comments.component';
+import { ListCategoryComponent } from '../categories/list-category/list-category.component';
+import { AddCategoryComponent } from '../categories/add-category/add-category.component';
+import { MatSelectModule } from '@angular/material/select';
+import { EditCategoryComponent } from '../categories/edit-category/edit-category.component';
+import { DeleteCategoryComponent } from '../categories/delete-category/delete-category.component';
 
 
 
@@ -36,6 +41,10 @@ import { MatIconModule } from '@angular/material/icon';
     ListCommentsComponent,
     EditCommentComponent,
     DeleteCommentComponent,
+    AddCategoryComponent,
+    ListCategoryComponent,
+    DeleteCategoryComponent,
+    EditCategoryComponent,
   ],
   exports: [
     ListPostComponent,
@@ -53,6 +62,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatListModule,
     MatMenuModule,
     MatIconModule,
+    MatSelectModule,
   ],
   providers: [
     PostService,
@@ -62,6 +72,8 @@ import { MatIconModule } from '@angular/material/icon';
     DeletePostComponent,
     EditCommentComponent,
     DeleteCommentComponent,
+    DeleteCategoryComponent,
+    EditCategoryComponent,,
   ]
 })
 export class PostModule { }

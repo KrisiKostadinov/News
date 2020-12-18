@@ -1,12 +1,20 @@
-.articles {
+.container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px;
+    justify-content: space-between;
 }
 
-mat-card {
-    max-width: 400px;
+.container .categories {
+    width: 30%;
+    text-align: center;
+    margin: 2em 0;
+}
+
+.articles {
+    width: 70%;
+}
+
+.articles h2 {
+    text-align: center;
 }
 
 mat-card-title {
@@ -18,6 +26,6 @@ img {
     cursor: pointer;
 }
 
-h2 {
-    text-align: center;
+mat-card {
+    margin: 2em 0;
 }

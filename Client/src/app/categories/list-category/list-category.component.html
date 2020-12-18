@@ -1,0 +1,19 @@
+<h2>
+    <button routerLink="" mat-button (click)="addCategory()">Create category</button>
+</h2>
+<mat-selection-list [multiple]="false">
+    <mat-list-option (click)="selectCategory('all')">All</mat-list-option>
+    <mat-list-option (click)="selectCategory(category._id)" *ngFor="let category of categories; let i = index">
+        <div>
+            {{ category.title }}
+            <div *ngIf="user.data.isAdmin">
+                <button (click)="delete(category.title, category._id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button (click)="edit(category.title, category._id, i)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-list-option>
+</mat-selection-list>

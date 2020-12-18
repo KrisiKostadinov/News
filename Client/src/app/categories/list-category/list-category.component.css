@@ -1,0 +1,10 @@
+mat-list-option div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-list-option div button {
+    border: none;
+    background-color: transparent;
+}

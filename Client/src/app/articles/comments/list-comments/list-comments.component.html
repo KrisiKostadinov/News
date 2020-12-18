@@ -2,6 +2,7 @@
     <mat-list-item *ngFor="let comment of comments; index as i">
         <div mat-line> {{ comment.author.fullname }} </div>
         <div mat-line>{{ comment.content }}</div>
+        <div mat-line>{{ comment.createdOn }}</div>
         <div *ngIf="comment.isAuthor">
             <button mat-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeletePostComponent } from '../delete-post/delete-post.component';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Comment } from 'src/app/models/comment.model';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-details-post',
@@ -15,7 +16,7 @@ import { Comment } from 'src/app/models/comment.model';
 export class DetailsPostComponent implements OnInit {
 
   id: string;
-  post;
+  post: Post = null;
 
   constructor(private postService: PostService,
     private route: ActivatedRoute,
@@ -27,16 +28,7 @@ export class DetailsPostComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
 
-    this.postService.byId(this.id)
-      .subscribe(data => {
-        data.isAuthor = this.authService.data._id == data.author._id;
-        this.post = data;
-
-        this.sortComments();
-
-        this.checkAuthorComment();
-      });
-
+      this.getPost();
   }
 
   edit(id) {
@@ -54,23 +46,29 @@ export class DetailsPostComponent implements OnInit {
         if (data) {
           this.postService.delete(id)
             .subscribe(data => {
-              this.storage.refFromURL(this.post.imageUrl)
-                .delete()
-                .subscribe(data => {
-                  this.router.navigate(['/post']);
-                });
+              if (this.post.imageUrl) {
+                this.storage.refFromURL(this.post.imageUrl)
+                  .delete()
+                  .subscribe(data => {
+                    this.router.navigate(['/post']);
+                  });
+              } else {
+                this.router.navigate(['/post']);
+              }
             });
         }
       });
   }
 
   like() {
-    if (!this.post.likes.some(x => x == this.authService.data._id)) {
+    if (!this.isLikedUser()) {
       this.post.likes.push(this.authService.data._id);
+      this.post.isLiked = this.isLikedUser();
       this.postService.like(this.id, this.authService.data._id)
         .subscribe();
     } else {
       this.post.likes = this.post.likes.filter(x => x != this.authService.data._id);
+      this.post.isLiked = this.isLikedUser();
       this.postService.dislike(this.id, this.authService.data._id)
         .subscribe();
     }
@@ -92,8 +90,15 @@ export class DetailsPostComponent implements OnInit {
 
         this.sortComments();
 
+        this.post.createdOnAsString = new Date(this.post.createdOn).toDateString() + ' / ' + new Date(this.post.createdOn).toLocaleTimeString();
+        this.post.isLiked = this.isLikedUser();
+        
         this.checkAuthorComment();
       });
+  }
+
+  isLikedUser() {
+    return this.post.likes.some(u => u == this.authService.data._id);
   }
 
   checkAuthorComment() {
@@ -112,6 +117,9 @@ export class DetailsPostComponent implements OnInit {
 
   sortComments() {
     this.post.comments.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
+    this.post.comments.forEach(comment => {
+      comment.createdOn = new Date(comment.createdOn).toDateString();
+    });
   }
 
 }

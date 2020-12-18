@@ -4,7 +4,11 @@
 }
 
 mat-form-field {
-    width: 100%;
+    width: 70%;
+}
+
+mat-form-field:nth-child(2) {
+    width: 30%;
 }
 
 h2 {

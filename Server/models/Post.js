@@ -12,7 +12,7 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
 
-    categoryId: {
+    category: {
         type: ObjectId,
         ref: 'Category'
     },

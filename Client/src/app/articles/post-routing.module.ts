@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'add', component: AddPostComponent },
   { path: '', component: ListPostComponent },
   { path: 'details/:id', component: DetailsPostComponent },
-  { path: 'edit/:id', component: EditPostComponent }
+  { path: 'edit/:id', component: EditPostComponent },
 ];
 
 @NgModule({

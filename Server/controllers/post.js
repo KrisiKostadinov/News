@@ -4,7 +4,10 @@ const Comment = require("../models/Comment");
 module.exports = {
     get: {
         async all(req, res) {
-            const posts = await Post.find({}).populate('author');
+            const posts = await Post.find({})
+                .populate('author')
+                .populate('category');
+                
             console.log(posts);
             res.json(posts);
         },
@@ -17,7 +20,7 @@ module.exports = {
                     populate: {
                         path: 'author'
                     }
-                });
+                }).populate('category');
 
             res.json(post);
         },

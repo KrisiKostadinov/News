@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { category } = require('../controllers');
 
-router.get('/', category.get.all);
+router.get('/all', category.get.all);
 router.get('/details/:id', category.get.byId);
 router.get('/edit/:id', category.get.edit);
 

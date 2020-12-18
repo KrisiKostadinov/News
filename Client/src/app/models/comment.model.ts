@@ -5,5 +5,5 @@ export class Comment {
     content: string;
     author?: User;
     isAuthor?: boolean;
-    createdOn?: any;
+    createdOn?: string;
 }
