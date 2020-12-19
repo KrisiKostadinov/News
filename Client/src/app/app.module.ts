@@ -14,7 +14,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import {
   AngularFireStorageModule,
 } from "@angular/fire/storage";
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { AngularFireModule } from '@angular/fire';
     AppRoutingModule,
     HttpClientModule,
     AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    AngularFireModule.initializeApp(environment.environment, "cloud"),
     CommonAppModule,
     AuthModule,
     PostModule,
