@@ -9,6 +9,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 const routes: Routes = [
   { path: 'add', component: AddPostComponent },
   { path: '', component: ListPostComponent },
+  { path: 'category/:id', component: ListPostComponent },
   { path: 'details/:id', component: DetailsPostComponent },
   { path: 'edit/:id', component: EditPostComponent },
 ];

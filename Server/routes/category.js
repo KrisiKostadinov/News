@@ -8,6 +8,6 @@ router.get('/edit/:id', category.get.edit);
 router.post('/add', category.post.add);
 router.post('/edit/:id', category.post.edit);
 
-router.delete('/edit/:id', category.delete.byId);
+router.delete('/delete/:id', category.delete.byId);
 
 module.exports = router;

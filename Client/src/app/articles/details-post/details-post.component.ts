@@ -138,4 +138,8 @@ export class DetailsPostComponent implements OnInit {
     }
   }
 
+  selectedCategory(id) {
+    this.router.navigate(['/post/category/' + id]);
+  }
+
 }

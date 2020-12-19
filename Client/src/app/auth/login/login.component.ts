@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
             fullname: data.fullname,
             email: data.email,
             _id: data._id,
+            isAdmin: data.isAdmin,
           });
           
           return this.router.navigate(['/']);

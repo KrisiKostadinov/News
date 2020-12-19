@@ -1,43 +1,49 @@
-<mat-card *ngIf="post">
-    <div class="header">
-        <mat-card-header>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <mat-card-subtitle>{{ post.author?.fullname }}</mat-card-subtitle>
-            <mat-card-subtitle>{{ post.createdOnAsString }}</mat-card-subtitle>
-        </mat-card-header>
-        <div *ngIf="post.isAuthor">
-            <button mat-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item *ngIf="post.isAuthor" (click)="edit(post._id)" color="accent">Edit</button>
-                <button mat-menu-item *ngIf="post.isAuthor" (click)="delete(post._id)" color="warn">Delete</button>
-                <button mat-menu-item color="warn" (click)="deleteAllComments()">Delete all comments</button>
-                <button mat-menu-item color="warn" (click)="lockComments()">Lock/unlock the comments</button>
-            </mat-menu>
+<div class="container">
+    <mat-card *ngIf="post">
+        <div class="header">
+            <mat-card-header>
+                <mat-card-title>{{ post.title }}</mat-card-title>
+                <mat-card-subtitle>{{ post.author?.fullname }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ post.createdOnAsString }}</mat-card-subtitle>
+            </mat-card-header>
+            <div *ngIf="post.isAuthor">
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngIf="post.isAuthor" (click)="edit(post._id)" color="accent">Edit</button>
+                    <button mat-menu-item *ngIf="post.isAuthor" (click)="delete(post._id)" color="warn">Delete</button>
+                    <button mat-menu-item color="warn" (click)="deleteAllComments()">Delete all comments</button>
+                    <button mat-menu-item color="warn" (click)="lockComments()">Lock/unlock the comments</button>
+                </mat-menu>
+            </div>
         </div>
+        <div class="img-content">
+            <img *ngIf="post.imageUrl" src="{{post.imageUrl}}">
+            <mat-card-content innerHTML="{{ post.content }}"></mat-card-content>
+        </div>
+        <mat-card-actions>
+            <button *ngIf="post.isLiked" mat-button (click)="like()" color="primary">Like
+                {{ post.likes?.length }}</button>
+            <button *ngIf="!post.isLiked" mat-button (click)="like()">Like {{ post.likes?.length }}</button>
+        </mat-card-actions>
+        <ul class="tags">
+            <span>Tags: </span>
+            <li *ngFor="let tag of post?.tags">{{ tag }}</li>
+        </ul>
+        <div *ngIf="!post.lockComments">
+            <h4>Comments ({{ post.comments.length }})</h4>
+            <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
+            <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>
+        </div>
+        <div class="comments-lock" *ngIf="post.lockComments">
+            <h4>
+                <mat-icon>lock</mat-icon>
+                Comments
+            </h4>
+        </div>
+    </mat-card>
+    <div class="categories">
+        <app-list-category (selectedCategory)="selectedCategory($event)"></app-list-category>
     </div>
-    <img *ngIf="post.imageUrl" src="{{post.imageUrl}}">
-    <mat-card-content>
-        <div innerHTML="{{ post.content }}"></div>
-    </mat-card-content>
-    <mat-card-actions>
-        <button *ngIf="post.isLiked" mat-button (click)="like()" color="primary">Like {{ post.likes?.length }}</button>
-        <button *ngIf="!post.isLiked" mat-button (click)="like()">Like {{ post.likes?.length }}</button>
-    </mat-card-actions>
-    <ul class="tags">
-        <span>Tags: </span>
-        <li *ngFor="let tag of post?.tags">{{ tag }}</li>
-    </ul>
-    <div *ngIf="!post.lockComments">
-        <h4>Comments ({{ post.comments.length }})</h4>
-        <app-add-comment (addComment)="addedComment()" [postId]="id"></app-add-comment>
-        <app-list-comments [comments]="post.comments" (deletedComment)="deletedComment($event)"></app-list-comments>
-    </div>
-    <div class="comments-lock" *ngIf="post.lockComments">
-        <h4>
-            <mat-icon>lock</mat-icon>
-            Comments
-        </h4>
-    </div>
-</mat-card>
+</div>

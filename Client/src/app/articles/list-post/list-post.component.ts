@@ -20,6 +20,16 @@ export class ListPostComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  isInCategory(id) {
+    if (id) {
+      this.displayArticles = this.articles.filter(a => a.category._id == id);
+    }
+  }
+
+  private getPosts() {
     this.postService.all()
       .subscribe(data => {
         data.forEach(post => {
@@ -31,6 +41,7 @@ export class ListPostComponent implements OnInit {
         this.articles = data;
         this.displayArticles = this.articles;
         this.filterArticles(this.selectedCategoryId);
+        this.isInCategory(this.route.snapshot.params['id']);
       });
   }
 
@@ -48,7 +59,7 @@ export class ListPostComponent implements OnInit {
     if (id == 'all') {
       return this.displayArticles = this.articles;
     }
-    
+
     this.displayArticles = this.articles.filter(a => a.category._id == id);
   }
 
